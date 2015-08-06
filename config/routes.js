@@ -36,7 +36,9 @@ module.exports.routes = {
     view: 'homepage'
   },
 
-  'get /user/create' : 'UserController.create'
+  'get /user/create' : 'UserController.create',
+
+  'get /session/login' : 'SessionController.login'
 
   /***************************************************************************
   *                                                                          *
