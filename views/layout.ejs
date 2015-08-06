@@ -81,7 +81,7 @@
                 <%  if(req.session && req.session.authenticated == true) {%>
                     <ul class="nav navbar-nav" style="float:right">
                         <li>
-                            <a href="#">Hi, <%= req.session.User.name.charAt(0).toUpperCase() + req.session.User.name.slice(1) %></a>
+                            <a href="#"><%= req.session.User.name.charAt(0).toUpperCase() + req.session.User.name.slice(1) %> </a>
                         </li>
                         <li>
                             <a href="/dashboard/dashboardhome">Dashboard</a>

@@ -9,13 +9,12 @@ module.exports = {
 	
 	login: function (req, res){
 
-		User.findOne({email: req.param('email'), password: req.param('password')}).exec(function findOneResult (err, found){
+		sails.models.user.findOneWithPasswordHash({email: req.param('email'), password: req.param('password')},function findOneResult (err, found){
 			if(err != null){
 					return res.view('login',{message: err.message});
 				}
 			else if(found!=null){
 				req.session.authenticated = true;
-				//console.log(found);
 				found.password = '';
 				req.session.User = found;
 				//console.log(req.session.User);
