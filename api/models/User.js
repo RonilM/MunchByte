@@ -10,18 +10,12 @@ module.exports = {
  
   attributes: {
 
-	  userid: {
-	   type: 'string',
-	   unique: true,
-	   required: true
-	  },
 	  name: {
 	  type: 'string',
 	  required: true
 	  },
 	  email: {
 	  type: 'string',
-	  email: true,
 	  unique: true,
 	  required: true
 	  },

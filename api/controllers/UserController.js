@@ -7,10 +7,17 @@
 
 module.exports = {
 
-	create: function (req, res) {
-		 return res.json({
-      		todo: 'Not implemented yet!'
-    		});
+	signup: function (req, res) {
+
+			User.create(req.allParams()).exec(function signupUser(err, created){
+				if(err != null){
+					return res.view('signup',{message: err});
+				}
+
+				req.session.authenticated = true;
+				return res.redirect('/');
+			});
+
 	},
 
 	

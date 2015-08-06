@@ -35,10 +35,21 @@ module.exports.routes = {
   '/': {
     view: 'homepage'
   },
+  'get /user/signup': {
+    view: 'signup',
+    locals: {
+      message: ''
+    }
+  },
+  'get /session/login' : {
+    view: 'login',
+    locals: {
+      message: ''
+    }
+  },
 
-  'get /user/create' : 'UserController.create',
-
-  'get /session/login' : 'SessionController.login'
+  'post /user/signup' : 'UserController.signup',
+  'post /session/login' : 'SessionController.login'
 
   /***************************************************************************
   *                                                                          *
