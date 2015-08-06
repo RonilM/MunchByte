@@ -15,7 +15,11 @@ module.exports = {
 				}
 			else if(found!=null){
 				req.session.authenticated = true;
-				return res.redirect('/');
+				//console.log(found);
+				found.password = '';
+				req.session.User = found;
+				//console.log(req.session.User);
+				return res.view('Dashboard/DashboardHome');
 			}
 				return res.view('login',{message: 'Incorrect Username or Password...'});
 
@@ -24,7 +28,8 @@ module.exports = {
 
 	logout: function (req, res){
 		req.session.authenticated = false;
-		return res.json({ todo: 'Logout not implemented yet' });
+		req.session.destroy();
+		return res.view('homepage');
 	}
 
 };

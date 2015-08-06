@@ -30,7 +30,8 @@ module.exports.policies = {
    'SessionController' : true,
    'UserController':{
     signup:true
-   }
+   },
+   'NavigationController': true
 
   /***************************************************************************
   *                                                                          *

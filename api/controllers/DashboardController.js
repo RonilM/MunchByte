@@ -6,6 +6,10 @@
  */
 
 module.exports = {
-	
+	 DashboardHome: function(req, res){
+
+	 	return res.view('Dashboard/DashboardHome')
+
+	 }
 };
 

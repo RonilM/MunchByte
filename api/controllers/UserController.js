@@ -15,6 +15,10 @@ module.exports = {
 				}
 
 				req.session.authenticated = true;
+				//console.log(created);
+				created.password = '';
+				req.session.User = created;
+				//console.log(req.session.User);
 				return res.redirect('/');
 			});
 

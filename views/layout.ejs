@@ -31,6 +31,7 @@
     
     <!--STYLES-->
     <link rel="stylesheet" href="/styles/importer.css">
+    <link rel="stylesheet" href="/styles/simple-sidebar.css">
     <!--STYLES END-->
     
     <!-- Latest compiled and minified CSS -->
@@ -47,6 +48,68 @@
   </head>
 
   <body>
+
+  <div class="container">
+     <div class="row">
+     <div class="col-lg-12 text-center">
+
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">MunchByte</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="#">About</a>
+                    </li>
+                    <li>
+                        <a href="#">Services</a>
+                    </li>
+                    <li>
+                        <a href="#">Contact</a>
+                    </li>
+                </ul>
+                <%  if(req.session && req.session.authenticated == true) {%>
+                    <ul class="nav navbar-nav" style="float:right">
+                        <li>
+                            <a href="#">Hi, <%= req.session.User.name.charAt(0).toUpperCase() + req.session.User.name.slice(1) %></a>
+                        </li>
+                        <li>
+                            <a href="/dashboard/dashboardhome">Dashboard</a>
+                        </li>
+                        <li>
+                            <a href="/session/logout">logout</a>
+                        </li>
+
+                    </ul>
+                <%} else {%>
+
+                    <ul class="nav navbar-nav" style="float:right">
+                        <li>
+                            <a href="/session/login">Log in</a>
+                        </li>
+                        <li>
+                            <a href="/user/signup">Sign up</a>
+                        </li>
+                    </ul>
+                <%}%>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+    </nav>
+    </div>
+</div>
+</div>    <!-- Page Content -->
+  
     <%- body %>
 
 
@@ -100,7 +163,7 @@
 
     -->
     <style>
-      body { padding-top: 70px; }
+      body { padding-top: 50px; }
     </style>
     <!--SCRIPTS-->
     <script src="/js/dependencies/sails.io.js"></script>
