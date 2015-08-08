@@ -14,7 +14,7 @@ module.exports.bootstrap = function(cb) {
   // with the bootstrap!  (otherwise your server will never lift, since it's waiting on the bootstrap)
 
   console.log("Bootstrapping...\n");
-  
+
   Roles.find().exec(function countRoles(err, tuples){
     if(err != null)
       return cb(err);
@@ -27,17 +27,10 @@ module.exports.bootstrap = function(cb) {
     {rolename: sails.config.globalVars.DeliveryManagerRoleName, description: '',id:6}
     ];
 
-    for(tuple in tuples)
-      for(data in InitialRolesData)
-        if(tuples[tuple].rolename == InitialRolesData[data].rolename){
-          InitialRolesData.splice(data,1);
-          break;
-        }
-    console.log("Adding the following roles:\n");
-    console.log( InitialRolesData);
-    Roles.create(InitialRolesData).exec(function createRoles(err, created){
+    Roles.findOrCreate(InitialRolesData).exec(function createRoles(err, record){
       if(err!=null)
         return cb(err);
+      console.log("bootstrap.js: Adding absent roles:\n");
       return cb();
     });
   });

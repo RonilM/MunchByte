@@ -6,21 +6,31 @@
  */
 
 module.exports = {
-	
+
 	login: function (req, res){
 
-		sails.models.user.findOneWithPasswordHash({email: req.param('email'), password: req.param('password')},function findOneResult (err, found){
+		sails.models.user.findOneWithPasswordHash({email: req.param('email'), password: req.param('password')},function findOneResult (err, userData){
 			if(err != null){
 					return res.view('login',{message: err.message});
 				}
-			else if(found!=null){
-				req.session.authenticated = true;
-				found.password = '';
-				req.session.User = found;
-				//console.log(req.session.User);
-				return res.view('Dashboard/DashboardHome');
+			else if(userData!=null){
+					UserRolesMapping.find({UserId : userData.id}).exec(function foundRoles(err, mappingTuples){
+						if(err != null)
+								return res.view('login',{message: err.message});
+						var RoleIds = [];
+						for(mt in mappingTuples) { RoleIds.push({ id : mappingTuples[mt].RoleId }); }
+						Roles.find(RoleIds).exec(function gettingRoleData(err,rolesData){
+							if(err != null)
+									return res.view('login',{message: err.message});
+								req.session.authenticated = true;
+								userData.password = '';
+								req.session.User = userData;
+								req.session.User.roleList=rolesData;
+								return res.view('Dashboard/DashboardHome');
+						});
+					});
 			}
-				return res.view('login',{message: 'Incorrect Username or Password...'});
+				//return res.view('login',{message: 'Incorrect Username or Password...'});
 
 		});
 	},
@@ -32,4 +42,3 @@ module.exports = {
 	}
 
 };
-

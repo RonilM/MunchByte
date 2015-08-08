@@ -7,7 +7,7 @@
 
 module.exports = {
 
- 
+
   attributes: {
 
 	  name: {
@@ -24,7 +24,7 @@ module.exports = {
 	  required: true
 	  },
 
-	 
+
   },
 
   beforeCreate: function (values, cb){
@@ -38,14 +38,14 @@ module.exports = {
 findOneWithPasswordHash: function (values,callback){
 	  	var bcrypt = require('bcrypt');
 
-       	sails.models.user.findOne({email: values.email}).exec(function FindOneResult(err, found){ 
+       	sails.models.user.findOne({email: values.email}).exec(function FindOneResult(err, found){
         	if(err!=null) {
         		return callback(err,found);
         	}
         	else if(found == null) {
         		err = new Error();
-				err.message = "Incorrect Email";
-				return callback(err,found);	
+    				err.message = "Incorrect Email";
+    				return callback(err,found);
         	}
         	else{
 	        	bcrypt.compare(values.password, found.password, function(err, res) {
@@ -54,8 +54,8 @@ findOneWithPasswordHash: function (values,callback){
 				    	return callback(null,found);
 				    else{
 				    	err = new Error();
-						err.message = "Incorrect Password";
-						return callback(err,found);	
+  						err.message = "Incorrect Password";
+  						return callback(err,found);
 				    	}
 				});
 			}
@@ -66,4 +66,3 @@ findOneWithPasswordHash: function (values,callback){
 
 
 };
-
