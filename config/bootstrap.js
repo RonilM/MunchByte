@@ -10,33 +10,35 @@
  */
 
 module.exports.bootstrap = function(cb) {
-
-  // It's very important to trigger this callback method when you are finished
+  // It's very important to trigger the cb() callback method when you are finished
   // with the bootstrap!  (otherwise your server will never lift, since it's waiting on the bootstrap)
-  Roles.count().exec(function countRoles(err, count){
+
+  console.log("Bootstrapping...\n");
+  
+  Roles.find().exec(function countRoles(err, tuples){
     if(err != null)
       return cb(err);
-    if(count == 0){
-      Roles.destroy().exec(function truncateRoles(err){
-        if(err != null)
-          return cb(err);
-        var InitialRolesData = [
-        {rolename: sails.config.globalVars.SuperUserRoleName, description: '', id:1},
-        {rolename: sails.config.globalVars.EmployeeManagerRoleName, description: '',id:2},
-        {rolename: sails.config.globalVars.MenuManagerRoleName, description: '',id:3},
-        {rolename: sails.config.globalVars.InventoryManagerRoleName, description: '',id:4},
-        {rolename: sails.config.globalVars.VirtualKitManagerRoleName, description: '',id:5},
-        {rolename: sails.config.globalVars.DeliveryManagerRoleName, description: '',id:6}
-        ];
-        Roles.create(InitialRolesData).exec(function createRoles(err, created){
-          if(err!=null)
-            return cb(err);
-          return cb();
-        });
-      });
-    }
-    else {
+    var InitialRolesData = [
+    {rolename: sails.config.globalVars.SuperUserRoleName, description: '', id:1},
+    {rolename: sails.config.globalVars.EmployeeManagerRoleName, description: '',id:2},
+    {rolename: sails.config.globalVars.MenuManagerRoleName, description: '',id:3},
+    {rolename: sails.config.globalVars.InventoryManagerRoleName, description: '',id:4},
+    {rolename: sails.config.globalVars.VirtualKitManagerRoleName, description: '',id:5},
+    {rolename: sails.config.globalVars.DeliveryManagerRoleName, description: '',id:6}
+    ];
+
+    for(tuple in tuples)
+      for(data in InitialRolesData)
+        if(tuples[tuple].rolename == InitialRolesData[data].rolename){
+          InitialRolesData.splice(data,1);
+          break;
+        }
+    console.log("Adding the following roles:\n");
+    console.log( InitialRolesData);
+    Roles.create(InitialRolesData).exec(function createRoles(err, created){
+      if(err!=null)
+        return cb(err);
       return cb();
-    }
+    });
   });
 };

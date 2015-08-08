@@ -1,6 +1,8 @@
 
 
-module.exports.globalVars = {
+module.exports = {
+
+globalVars: {
 
 	SaltValue: 10,
 
@@ -10,5 +12,5 @@ module.exports.globalVars = {
 	InventoryManagerRoleName: 'InventoryManager',
 	VirtualKitManagerRoleName: 'VirtualKitManager',
 	DeliveryManagerRoleName: 'DeliveryManager'
-
+}
 };
