@@ -2,4 +2,4 @@
 
 a [Sails](http://sailsjs.org) application
 
-TeamYo : Ronil, Viraj, Rohan
+Team Members : Ronil, Viraj, Rohan
