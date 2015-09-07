@@ -12,6 +12,7 @@ module.exports = {
     UserId: {
       model: 'user'
     },
+    
     RoleId:{
       model: 'roles'
     }
